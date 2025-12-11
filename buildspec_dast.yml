@@ -1,14 +1,8 @@
 version: 0.2
 phases:
-  install:
-    commands:
-      - echo "Preparing environment for OWASP ZAP DAST..."
-      - docker --version || echo "Docker CLI not found in PATH"
-  pre_build:
-    commands:
-      - echo "Target URL: $TARGET_URL"
   build:
     commands:
+      - echo "Target URL: $TARGET_URL"
       - echo "Running OWASP ZAP baseline scan against $TARGET_URL..."
       - docker run --rm -t owasp/zap2docker-stable zap-baseline.py -t "$TARGET_URL" -m 5 -r zap_report.html
 artifacts:
