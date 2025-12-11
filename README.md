@@ -29,7 +29,7 @@ This project provisions a complete CI/CD pipeline on AWS using Terraform and AWS
 3. Set the required variables in `infra/terraform.tfvars` (or via CLI):
 
 ```hcl
-aws_region            = "us-east-1"             # Adjust as needed
+aws_region            = "us-east-1"            # Adjust as needed
 github_owner          = "Liang-Ren"            # Your GitHub user or org
 github_repo           = "my-cicd"              # This repository name
 github_branch         = "main"                 # Branch to trigger the pipeline
