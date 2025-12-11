@@ -149,6 +149,14 @@ resource "aws_launch_template" "web" {
     #!/bin/bash
     yum update -y
     yum install -y ruby wget httpd
+
+    # Install and start CodeDeploy agent
+    cd /home/ec2-user
+    wget https://aws-codedeploy-${var.aws_region}.s3.${var.aws_region}.amazonaws.com/latest/install
+    chmod +x ./install
+    ./install auto
+    systemctl enable codedeploy-agent
+    systemctl start codedeploy-agent
     systemctl enable httpd
     echo "hello Liang from CICD!" > /var/www/html/index.html
     systemctl start httpd
@@ -156,6 +164,10 @@ resource "aws_launch_template" "web" {
   )
 
   vpc_security_group_ids = [aws_security_group.web.id]
+
+  iam_instance_profile {
+    name = aws_iam_instance_profile.ec2_codedeploy.name
+  }
 
   tag_specifications {
     resource_type = "instance"
