@@ -12,7 +12,3 @@ phases:
           echo "ZAP scan failed or DockerHub rate limit reached" > zap_report.html
         fi
         set -e
-artifacts:
-  files:
-    - zap_report.html
-  discard-paths: yes
