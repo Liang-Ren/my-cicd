@@ -2,8 +2,6 @@ version: 0.2
 phases:
   build:
     commands:
-      - echo "Logging into Docker Hub..."
-      - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
       - echo "Running OWASP ZAP baseline scan..."
       - |
         set +e
