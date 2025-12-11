@@ -2,7 +2,7 @@ version: 0.2
 phases:
   build:
     commands:
-      - docker run --rm -t owasp/zap2docker-stable zap-baseline.py -t "$TARGET_URL" -m 5 -r zap_report.html
+      - docker run --rm -t ghcr.io/zaproxy/zap-stable zap-baseline.py -t "$TARGET_URL" -m 5 -r zap_report.html
 artifacts:
   files:
     - zap_report.html
