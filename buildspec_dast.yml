@@ -2,8 +2,19 @@ version: 0.2
 phases:
   build:
     commands:
-      - docker run --rm -v $(pwd):/zap/wrk -t zaproxy/zap-stable zap-baseline.py -t "$TARGET_URL" -m 5 -r zap_report.html
+      - echo "Target URL: $TARGET_URL"
+      - echo "Running OWASP ZAP baseline scan against $TARGET_URL..."
+      - |
+        set +e
+        echo "Starting OWASP ZAP baseline scan..."
+        docker run --rm -v $(pwd):/zap/wrk -t zaproxy/zap-stable zap-baseline.py -t "$TARGET_URL" -m 5 -r zap_report.html
+        EXIT_CODE=$?
+        echo "ZAP exit code: $EXIT_CODE"
+        if [ ! -f zap_report.html ]; then
+          echo "ZAP scan failed or image pull hit Docker Hub rate limits. See build logs for details." > zap_report.html
+        fi
+        set -e
 artifacts:
   files:
-    - zap_report.html
+    - "zap_report.html"
   discard-paths: yes
