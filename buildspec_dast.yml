@@ -4,7 +4,6 @@ phases:
     commands:
       - echo "Logging into Docker Hub..."
       - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-      - echo "Target URL: $TARGET_URL"
       - echo "Running OWASP ZAP baseline scan..."
       - |
         set +e
