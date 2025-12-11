@@ -45,6 +45,14 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
       {
         Effect = "Allow"
         Action = [
+          "codestar-connections:UseConnection",
+          "codeconnections:UseConnection"
+        ]
+        Resource = "*"
+      },
+      {
+        Effect = "Allow"
+        Action = [
           "s3:GetObject",
           "s3:GetObjectVersion",
           "s3:PutObject"
@@ -311,7 +319,9 @@ resource "aws_codepipeline" "this" {
       owner           = "AWS"
       provider        = "CodeBuild"
       version         = "1"
-      input_artifacts = ["build_output"]
+      # DAST only needs the repository content (for buildspec_dast.yml),
+      # so use the Source stage artifact instead of the build output.
+      input_artifacts = ["source_output"]
 
       configuration = {
         ProjectName = aws_codebuild_project.dast.name
