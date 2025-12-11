@@ -2,8 +2,6 @@ version: 0.2
 phases:
   build:
     commands:
-      - echo "Target URL: $TARGET_URL"
-      - echo "Running OWASP ZAP baseline scan against $TARGET_URL..."
       - |
         set +e
         echo "Starting OWASP ZAP baseline scan..."
