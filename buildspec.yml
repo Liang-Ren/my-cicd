@@ -1,0 +1,20 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+    commands:
+      - pip install bandit
+  pre_build:
+    commands:
+      - echo "Running SAST with bandit..."
+      - bandit -r app || { echo "SAST failed"; exit 1; }
+  build:
+    commands:
+      - echo "Packaging app artifacts..."
+      - mkdir -p artifacts
+      - cp -r app/* artifacts/
+artifacts:
+  files:
+    - '**/*'
+  base-directory: artifacts
