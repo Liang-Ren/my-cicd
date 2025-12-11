@@ -7,3 +7,5 @@ if ! command -v httpd >/dev/null 2>&1; then
 fi
 systemctl enable httpd
 mkdir -p /var/www/html
+# Remove existing default index to avoid CodeDeploy 'file already exists' errors
+rm -f /var/www/html/index.html
